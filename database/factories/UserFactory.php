@@ -2,11 +2,11 @@
 
 namespace Database\Factories;
 
-use App\Models\Team;
+
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
-use Laravel\Jetstream\Features;
+
 
 class UserFactory extends Factory
 {
@@ -26,8 +26,8 @@ class UserFactory extends Factory
     {
         return [
             'username' => $this->faker->userName(),
-            'first_name' => $this->faker->firstName(),
             'last_name' => $this->faker->lastName(),
+            'first_name' => $this->faker->firstName(),
             'email' => $this->faker->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
@@ -49,23 +49,5 @@ class UserFactory extends Factory
         });
     }
 
-    /**
-     * Indicate that the user should have a personal team.
-     *
-     * @return $this
-     */
-    public function withPersonalTeam()
-    {
-        if (! Features::hasTeamFeatures()) {
-            return $this->state([]);
-        }
-
-        return $this->has(
-            Team::factory()
-                ->state(function (array $attributes, User $user) {
-                    return ['username' => $user->username.'\'s Team', 'user_id' => $user->id, 'personal_team' => true];
-                }),
-            'ownedTeams'
-        );
-    }
+    
 }
