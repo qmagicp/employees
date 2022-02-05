@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Livewire\Users\UserIndex;
+use App\Http\Controllers\Backend\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,3 +30,4 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::resource('users', UserController::class);
